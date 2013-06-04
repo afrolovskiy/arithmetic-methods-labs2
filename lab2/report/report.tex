@@ -1,0 +1,90 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian,english]{babel} 
+\usepackage[T2A]{fontenc}
+
+\usepackage{mathtext}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{amsmath}
+
+%\usepackage{ucs}
+\usepackage{geometry}
+\geometry{left=2cm}
+\geometry{right=1.5cm}
+\geometry{top=1cm}
+\geometry{bottom=2cm}
+
+\author{Фроловский Алексей \\ ИУ7-17 \\ Вариант 13}
+\title{Лабораторная работа №2 \\ по курсу << Mетоды вычислений >>  \\ на тему: \\  
+<< Колебания струны >> }
+\date{4 июня 2013г.}
+
+% Убираем слово Chapter# перед названием главы
+\makeatletter
+\def\@makechapterhead#1{%
+	\vspace*{50\p@}%
+	{
+		\parindent \z@ \raggedright \normalfont
+		%\ifnum \c@secnumdepth >\m@ne
+		%    \huge\bfseries \@chapapp\space \thechapter
+		%    \par\nobreak
+		%    \vskip 20\p@
+		%\fi
+		\interlinepenalty\@M
+		\Huge \bfseries #1\par\nobreak
+		\vskip 40\p@
+	}
+}
+\makeatother
+
+\begin{document}
+
+\maketitle
+
+\chapter{Постановка задачи}
+\section{Формулировка задачи}
+Найти функцию $u(x, t)$, описывающую поперечные малые колебания однородной струны длины $l = 1$,
+концы которой движутся по заданным законам. Значение $u(x, t)$ задает величину отклонения точки
+струны с координатой $x$ в момент времени $t$ от положения равновесия. Движение левого конца струны
+$(x = 0)$ определяется законом $u(0, t) = \mu(t)$, правого $(x = l)$ - законом $u(l, t) = \nu (t)$. Начальное
+положение струны $u(x, 0) = \phi(x)$, начальная скорость $u_{t}(x, 0) = \psi(x)$. Закон колебаний струны
+определяется дифференциальным уравнением $u_{tt} = a^{2}u_{xx}$.
+
+\begin{displaymath}
+	\left\{
+		\begin{array}{l}
+			u_{tt}= a^{2}u_{xx}, 0 < x < l, t > 0 \\
+			u\vert_{t=0} =  \varphi(x)  \\
+			u_{t}\vert_{t=0} =  \psi(x)  \\
+			u\vert_{x=0} =  \mu(t) \\
+			u\vert_{x=l} =  \nu(t)
+		\end{array} \right.
+\end{displaymath}
+
+\section{Данные варианта}
+Функции, задающие краевые условия задачи, имеют следующий вид:$\varphi(x) = 0,5x(x^{2} + 1)$,
+$\psi(x) = cos 2x$, $\mu(t) = 0,5 + 2t - t^{2}$ и $\nu(t) = 1$.
+
+\chapter{Решение задачи}
+\section{Разностная схема}
+Данная задача может быть решена с использованием схемы "крест". Тогда разностная схема имеет
+следующий вид:
+
+\begin{displaymath}
+	\left\{
+		\begin{array}{l}
+			\dfrac{u_{i}^{j+1} - 2u_{i}^{j} + u_{i}^{j-1}}{\tau^{2}} = a^{2} \dfrac{u_{i-1}^{j} - 2u_{i}^{j} + u_{i+1}^{j}}{h^{2}}, i = \overline{1, N-1}, j= \overline{1, M} \\
+			\dfrac{u_{i}^{1} - u_{i}^{0}}{\tau} = \psi_{i} + \dfrac{\tau}{2} \dfrac{u_{i-1}^{0} - 2u_{i}^{0} + u_{i+1}^{0}}{h^{2}}, i= \overline{1, N-1} \\
+			u_{i}^{0} = \varphi_{i}, i = \overline{0, N}  \\
+			u_{0}^{j} = \mu^{j}, j = \overline{1, M} \\
+			u_{N}^{j} = \nu^{j}, j = \overline{1, M}
+		\end{array} \right.
+\end{displaymath}
+
+\end{document}
+
+
+
+
