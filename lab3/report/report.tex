@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian,english]{babel} 
+\usepackage[T2A]{fontenc}
+
+\usepackage{mathtext}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{amsmath}
+
+%\usepackage{ucs}
+\usepackage{geometry}
+\geometry{left=2cm}
+\geometry{right=1.5cm}
+\geometry{top=1cm}
+\geometry{bottom=2cm}
+
+\author{Фроловский Алексей \\ ИУ7-17 \\ Вариант 13}
+\title{Лабораторная работа №2 \\ по курсу << Mетоды вычислений >>  \\ на тему: \\  
+<< Уравнение Пуассона >> }
+\date{4 июня 2013г.}
+
+% Убираем слово Chapter# перед названием главы
+\makeatletter
+\def\@makechapterhead#1{%
+	\vspace*{50\p@}%
+	{
+		\parindent \z@ \raggedright \normalfont
+		%\ifnum \c@secnumdepth >\m@ne
+		%    \huge\bfseries \@chapapp\space \thechapter
+		%    \par\nobreak
+		%    \vskip 20\p@
+		%\fi
+		\interlinepenalty\@M
+		\Huge \bfseries #1\par\nobreak
+		\vskip 40\p@
+	}
+}
+\makeatother
+
+\begin{document}
+
+\maketitle
+
+\chapter{Постановка задачи}
+\section{Формулировка задачи}
+Найти решение краевой задачи для уравнения Пуассона в прямоугольнике $0 \le x \le a$,
+$0 \le y \le b$ в следующей формулировке:
+
+\begin{displaymath}
+	\left\{
+		\begin{array}{l}
+			\Delta u + f = 0 \\
+			u\vert_{x=0} =  \varphi_{0}(y)  \\
+			u\vert_{y=0} =  \psi_{0}(x)  \\
+			u\vert_{x=a} =  \varphi_{a}(y) \\
+			u\vert_{y=b} =  \psi_{b}(x)
+		\end{array} \right.
+\end{displaymath}
+
+\section{Данные варианта}
+Дано $a = 1$, $b = 1$, $\varphi_{0}(y) = 3sin\pi y$, $\varphi_{a}(y) = 2y$, $\psi_{0}(x) = 3x(1-x)$, 
+$\psi_{b}(x) = 2x$ , $f(x, y) = 4x^{2}(y-y^{2})$.
+
+\chapter{Решение задачи}
+\section{Разностная схема}
+Данная задача может быть решена с использованием схемы "крест". Тогда разностная схема имеет
+следующий вид:
+
+\begin{displaymath}
+	\left\{
+		\begin{array}{l}
+			\dfrac{u_{i-1, j} - 2u_{ij} + u_{i+1, j}}{h_{x}^{2}} + \dfrac{u_{i, j-1} - 2u_{ij} + u_{i, j+1}}{h_{y}^{2}} + f_{ij} = 0 \\
+			u_{0j} = \mu_{j} \\
+			u_{Nj} = \nu_{j}  \\
+			u_{i0} = \varphi_{i} \\
+			u_{iN} = \psi_{i}
+		\end{array} \right.
+\end{displaymath}
+где $i = \overline{0, N}$, $j = \overline{0, N}$.
+
+\end{document}
+
+
+
+
