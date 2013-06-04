@@ -1,0 +1,97 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian,english]{babel} 
+\usepackage[T2A]{fontenc}
+
+\usepackage{mathtext}
+\usepackage{tabularx}
+\usepackage{array}
+
+%\usepackage{ucs}
+\usepackage{geometry}
+\geometry{left=2cm}
+\geometry{right=1.5cm}
+\geometry{top=1cm}
+\geometry{bottom=2cm}
+
+\author{Фроловский Алексей \\ ИУ7-17 \\ Вариант 13}
+\title{Лабораторная работа №1 \\ по курсу << Mетоды вычислений >>  \\ на тему: \\  
+<< Распространение тепла в стержне >> }
+\date{31 мая 2013г.}
+
+% Убираем слово Chapter# перед названием главы
+\makeatletter
+\def\@makechapterhead#1{%
+	\vspace*{50\p@}%
+	{
+		\parindent \z@ \raggedright \normalfont
+		%\ifnum \c@secnumdepth >\m@ne
+		%    \huge\bfseries \@chapapp\space \thechapter
+		%    \par\nobreak
+		%    \vskip 20\p@
+		%\fi
+		\interlinepenalty\@M
+		\Huge \bfseries #1\par\nobreak
+		\vskip 40\p@
+	}
+}
+\makeatother
+
+\begin{document}
+
+\maketitle
+
+\chapter{Постановка задачи}
+\section{Формулировка задачи}
+Найти температуру $u(x, t)$ тонкого стержня длиной $l$ с теплоизолированной боковой поверхностью, 
+на концах которого задан температурный режим: один конец поддерживается при заданной
+фиксированной температуре или теплоизолирован, на другой конец извне подается заданный 
+тепловой поток. Коэффициент теплопроводности $K$ меняется в зависимости от температуры по 
+заданному закону $K = K(u)$. В начальный момент времени $t = 0$ стержень находится при фиксированной
+температуре $u_{0}$ по всей длине. Найти момент времени $T$ , в который температура в середине 
+стержня будет наибольшей.
+
+\begin{displaymath}
+	\left\{
+		\begin{array}{l}
+			c \rho \frac{\partial u}{\partial t}=\frac{\partial}{\partial x}(K(u(x)\frac{\partial u}{\partial x}), x \in (0, 1), t > 0 \\
+			u(x, 0) =  \varphi (x)  \\
+			u(0, t) =  \mu (t)  \\
+			K(u) \frac{\partial u}{\partial x} \vert_{x = l} = W(t)
+		\end{array} \right.
+\end{displaymath}
+
+\section{Данные варианта}
+Коэффициент теплопроводности отпределяется по следующей формуле:
+\begin{equation}
+	K(u) = a + bu^{\sigma}
+\end{equation}
+,где $a = 5$, $b= 0.1$, $\sigma=2.5$.
+
+На левом конце стержня поддерживется постоянная температура $u = u_{0}$. На правый конец стержня подаётся тепловой 
+поток, который задаётся следующей формулой:
+\begin{displaymath}
+	W(t) = \left\{
+		\begin{array}{ll}
+			Q & ,0 \le t <  t_{0} \\
+			0 & ,t \ge t_{0}
+		\end{array} \right.
+\end{displaymath}
+, где $t_{0} = 0.5$, $Q = 10$.
+
+Отсальные, необходимые для решения задачи, величины имеют следующий значения:
+$c=2$, $\rho = 1$,  $l = 1$, , $u_{0} = 0.05$.
+
+В начальный момент времени $t = 0$ стержень находится при фиксированной температуре $u_{0}$ по всей длинe,
+поэтому получаем $u(0, t) = \mu (t) = u_{0}$. На левом конце стержня поддерживается постоянная температура 
+$u_{0}$, поэтому получаем $u(x, 0) = \varphi (x) = u_{0}$.
+
+\chapter{Решение задачи}
+...
+
+\end{document}
+
+
+
+
