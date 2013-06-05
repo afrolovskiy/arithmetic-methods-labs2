@@ -3,7 +3,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[russian,english]{babel} 
 \usepackage[T2A]{fontenc}
-
+\usepackage{amsmath}
 \usepackage{mathtext}
 \usepackage{tabularx}
 \usepackage{array}
@@ -55,10 +55,10 @@
 \begin{displaymath}
 	\left\{
 		\begin{array}{l}
-			c \rho \frac{\partial u}{\partial t}=\frac{\partial}{\partial x}(K(u(x)\frac{\partial u}{\partial x}), x \in (0, 1), t > 0 \\
-			u(x, 0) =  \varphi (x)  \\
-			u(0, t) =  \mu (t)  \\
-			K(u) \frac{\partial u}{\partial x} \vert_{x = l} = W(t)
+			c \rho \dfrac{\partial u}{\partial t}=\dfrac{\partial}{\partial x}(K(u(x)\dfrac{\partial u}{\partial x}), x \in (0, 1), t > 0 \\
+			u(x, 0) = u_{0}  \\
+			u(0, t) =  u_{0}  \\
+			K(u) \dfrac{\partial u}{\partial x} \vert_{x = l} = W(t)
 		\end{array} \right.
 \end{displaymath}
 
@@ -88,8 +88,52 @@ $c=2$, $\rho = 1$,  $l = 1$, , $u_{0} = 0.05$.
 $u_{0}$, поэтому получаем $u(x, 0) = \varphi (x) = u_{0}$.
 
 \chapter{Решение задачи}
-...
+\section{Разностная схема}
+Для приближенного решения поставленной задачи была выбрана явная разностная схема,
+которая имеет следующий вид:
+\begin{displaymath}
+	\left\{
+		\begin{array}{l}
+			c \rho \dfrac{u_{i}^{j+1} - u_{i}^{j}}{\tau}=\dfrac{K_{i+}^{j}(u_{i+1}^{j} - u_{i}^{j}) - K_{i-}^{j}(u_{i}^{j} - u_{i-1}^{j})}{h^{2}}, i = \overline{1, N-1}, j = \overline{1, M} \\
+			K_{i+}^{j} =  \dfrac{K_{i+1}^{j} + K_{i}^{j}}{2}, i = \overline{1, N-1}, j = \overline{1, M}  \\
+			K_{i-}^{j} =  \dfrac{K_{i-1}^{j} + K_{i}^{j}}{2}, i = \overline{1, N-1}, j = \overline{1, M}  \\
+			u_{i}^{0} =  u_{0}, i = \overline{0, N}  \\
+			u_{0}^{j} =  u_{0}, j = \overline{1, M}  \\
+			K_{N-}^{j} \dfrac{u_{N}^{j} - u_{N-1}^{j}}{h} = W(t_{j}), i = \overline{1, M}
+		\end{array} \right.
+\end{displaymath}
 
+Сетка при этом определяется шагами по осям $x$ и $t$:
+\begin{equation}
+	h = l/N,
+	\tau = T/M,
+	x_{i} = ih, 
+	t_{j} = j\tau, 
+	j = \overline{0, M},
+	i = \overline{0, N}
+\end{equation}
+где $l$ - длина стержня, $N$ -количество шагов по оси $x$, $T$ - время расчётов,
+$M$ - количество шагов по оси  $t$.
+
+Заметим, что в уравнении $K_{N-}^{j} \dfrac{u_{N}^{j} - u_{N-1}^{j}}{h} = W(t_{j}), i = \overline{1, M}$ для вычисления значения температуры используется 
+$K_{N-}^{j}$, для вычисления которого необходимо знать значение температуры,
+поэтому для решения этой проблемы можно ввести на предпоследнем шаге более мелкое разбиение и вычислять искомой значение по следующей формуле:
+\begin{equation}
+	K_{N-}^{j} = K(u_{N-}^{j}) = a + b(u_{N-}^{j})^{\sigma}.
+\end{equation}
+
+Для поставленной задачи требование устойчивости налагает ограничение на параметры сетки $h$ и $t$.
+Схема является устойчивой, если выполняется следующее неравенство:
+\begin{equation}
+	\dfrac{1}{2} \dfrac{4\tau}{h^{2}}K_{max} \le 1.
+\end{equation}
+
+По результатам работы было установлено, что $K_{max}  = 5.5$, поэтому должно выполнять условие $\dfrac{\tau}{h^{2}} \le \dfrac{1}{11}$.
+
+Получаемое решение имеет порядок апроксимации $O(\tau + h^{2})$ в силу замены 
+дифференциальных уравнений разностными.
+
+Значения функции $u(x, t)$ вычсляются послойно.
 \end{document}
 
 

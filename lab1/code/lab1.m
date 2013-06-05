@@ -13,8 +13,8 @@ ro = 1.0;
 L = 1.0;
 
 T = 1.0;
-N = 50;
-M = 50000;
+N = 20;
+M = 5000;
 
 tau = T / M;
 h = L / N;
@@ -64,5 +64,7 @@ end;
 [T, X] = meshgrid(t, x);
 mesh(T, X, U);
 
-fprintf('Umax=%d\n', j, Umax);
-fprintf('Kmax=%d\n', j, Kmax);
+fprintf('Umax=%d\n', Umax);
+fprintf('Kmax=%d\n', Kmax);
+xlabel('t');
+ylabel('x');
